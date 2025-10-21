@@ -9,7 +9,7 @@ const app = express();
 // ✅ CONFIGURACIÓN CORS DEFINITIVA
 const corsOptions = {
   origin: [
-    'https://api-books-inky.vercel.app/',          // Producción
+    'https://api-books-inky.vercel.app',          // Producción
     'http://localhost:3000',               // Desarrollo
     'http://127.0.0.1:3000',               // Desarrollo
     'http://localhost:8000',               // Desarrollo frontend
@@ -25,10 +25,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(logger);
-
-// Middlewares globales
-app.use(express.json()); // Parsear JSON en el body
-app.use(logger); // Middleware de logging personalizado
 
 // Rutas principales
 app.use('/api/books', bookRoutes);
