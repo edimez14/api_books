@@ -12,7 +12,7 @@ const corsOptions = {
   origin: [
     'https://edimez14.github.io', // Tu dominio de GitHub Pages
     'http://localhost:3000', // Para desarrollo local
-    'http://127.0.0.1:3000' // Para desarrollo local
+    'http://127.0.0.1:3000', // Para desarrollo local
     'http://0.0.0.0:8000/'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
