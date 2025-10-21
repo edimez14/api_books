@@ -31,9 +31,10 @@ app.use(cors({
     if (!origin) return callback(null, true);
     
     const allowedOrigins = [
-      'https://tu-usuario.github.io',
+      'https://edimez14.github.io',
       'http://localhost:3000',
-      'http://127.0.0.1:3000'
+      'http://127.0.0.1:3000',
+      'http://0.0.0.0:8000/'
     ];
     
     if (allowedOrigins.indexOf(origin) === -1) {
