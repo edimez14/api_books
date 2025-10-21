@@ -1,1 +1,8 @@
-node_modules/
+# Backend dependencies
+backend/node_modules/
+backend/package-lock.json
+backend/.env
+
+# Frontend temporary files
+.DS_Store
+Thumbs.db
