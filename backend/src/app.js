@@ -4,46 +4,27 @@ const errorHandler = require('./middlewares/errorHandler');
 const logger = require('./middlewares/logger');
 const cors = require('cors');
 
-// Crear aplicación Express
 const app = express();
 
-// Configuración específica para GitHub Pages
+// ✅ CONFIGURACIÓN CORS DEFINITIVA
 const corsOptions = {
   origin: [
-    'https://edimez14.github.io', // Tu dominio de GitHub Pages
-    'http://localhost:3000', // Para desarrollo local
-    'http://127.0.0.1:3000', // Para desarrollo local
-    'http://0.0.0.0:8000/'
+    'https://edimez14.github.io',          // Producción
+    'http://localhost:3000',               // Desarrollo
+    'http://127.0.0.1:3000',               // Desarrollo
+    'http://localhost:8000',               // Desarrollo frontend
+    'http://127.0.0.1:8000',               // Desarrollo frontend  
+    'http://0.0.0.0:8000'                  // Desarrollo frontend
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-  credentials: false, // No necesitas credentials para GitHub Pages
+  credentials: false,
   optionsSuccessStatus: 200
 };
 
-// Aplicar CORS
 app.use(cors(corsOptions));
-
-// O si quieres ser más restrictivo:
-app.use(cors({
-  origin: function (origin, callback) {
-    // Permitir requests sin 'origin' (como mobile apps o curl)
-    if (!origin) return callback(null, true);
-    
-    const allowedOrigins = [
-      'https://edimez14.github.io',
-      'http://localhost:3000',
-      'http://127.0.0.1:3000',
-      'http://0.0.0.0:8000/'
-    ];
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  }
-}));
+app.use(express.json());
+app.use(logger);
 
 // Middlewares globales
 app.use(express.json()); // Parsear JSON en el body
