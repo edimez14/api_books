@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Biblioteca Digital - Catálogo de Libros</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-book-open"></i>
+                    Biblioteca Digital
+                </h1>
+                <nav class="nav">
+                    <button class="nav-btn active" data-section="catalog">
+                        <i class="fas fa-th-list"></i>
+                        Catálogo
+                    </button>
+                    <button class="nav-btn" data-section="add-book">
+                        <i class="fas fa-plus-circle"></i>
+                        Agregar Libro
+                    </button>
+                    <button class="nav-btn" data-section="search">
+                        <i class="fas fa-search"></i>
+                        Buscar
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Notifications -->
+            <div id="notification" class="notification hidden"></div>
+
+            <!-- Catalog Section -->
+            <section id="catalog" class="section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-th-list"></i> Catálogo de Libros</h2>
+                    <div class="controls">
+                        <button id="refresh-btn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> Actualizar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="total-books">0</span>
+                            <span class="stat-label">Total Libros</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="total-authors">0</span>
+                            <span class="stat-label">Autores Únicos</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="total-genres">0</span>
+                            <span class="stat-label">Géneros</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="books-grid" id="books-grid">
+                    <!-- Los libros se cargarán aquí dinámicamente -->
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Cargando catálogo...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Book Section -->
+            <section id="add-book" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> Agregar Nuevo Libro</h2>
+                </div>
+                
+                <form id="add-book-form" class="book-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="title">
+                                <i class="fas fa-heading"></i>
+                                Título *
+                            </label>
+                            <input type="text" id="title" name="title" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="author">
+                                <i class="fas fa-user-edit"></i>
+                                Autor *
+                            </label>
+                            <input type="text" id="author" name="author" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="year">
+                                <i class="fas fa-calendar-alt"></i>
+                                Año de Publicación *
+                            </label>
+                            <input type="number" id="year" name="year" min="1000" max="2030" required>
+                            <span class="error-message"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="genre">
+                                <i class="fas fa-tags"></i>
+                                Género *
+                            </label>
+                            <select id="genre" name="genre" required>
+                                <option value="">Selecciona un género</option>
+                                <option value="Novela">Novela</option>
+                                <option value="Ciencia Ficción">Ciencia Ficción</option>
+                                <option value="Fantasia">Fantasía</option>
+                                <option value="Romance">Romance</option>
+                                <option value="Misterio">Misterio</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Biografía">Biografía</option>
+                                <option value="Historia">Historia</option>
+                                <option value="Poesía">Poesía</option>
+                                <option value="Teatro">Teatro</option>
+                                <option value="Realismo Mágico">Realismo Mágico</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="Infantil">Infantil</option>
+                                <option value="Juvenil">Juvenil</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Guardar Libro
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-undo"></i>
+                            Limpiar
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Search Section -->
+            <section id="search" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-search"></i> Buscar Libros</h2>
+                </div>
+                
+                <div class="search-container">
+                    <form id="search-form" class="search-form">
+                        <div class="search-filters">
+                            <div class="form-group">
+                                <label for="search-author">
+                                    <i class="fas fa-user-edit"></i>
+                                    Autor
+                                </label>
+                                <input type="text" id="search-author" name="author" placeholder="Ej: Gabriel García Márquez">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="search-genre">
+                                    <i class="fas fa-tags"></i>
+                                    Género
+                                </label>
+                                <select id="search-genre" name="genre">
+                                    <option value="">Todos los géneros</option>
+                                    <option value="Novela">Novela</option>
+                                    <option value="Ciencia Ficción">Ciencia Ficción</option>
+                                    <option value="Fantasia">Fantasía</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Misterio">Misterio</option>
+                                    <option value="Terror">Terror</option>
+                                    <option value="Biografía">Biografía</option>
+                                    <option value="Historia">Historia</option>
+                                    <option value="Poesía">Poesía</option>
+                                    <option value="Teatro">Teatro</option>
+                                    <option value="Realismo Mágico">Realismo Mágico</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="search-limit">
+                                    <i class="fas fa-list-ol"></i>
+                                    Resultados por página
+                                </label>
+                                <select id="search-limit" name="limit">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="search-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                                Buscar
+                            </button>
+                            <button type="button" id="clear-search" class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                                Limpiar
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="search-results">
+                        <div class="results-header">
+                            <h3>Resultados de la Búsqueda</h3>
+                            <div id="search-stats" class="search-stats"></div>
+                        </div>
+                        
+                        <div class="results-grid" id="search-results">
+                            <div class="empty-state">
+                                <i class="fas fa-search"></i>
+                                <p>Realiza una búsqueda para ver los resultados</p>
+                            </div>
+                        </div>
+                        
+                        <div id="pagination" class="pagination hidden"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Edit Book Modal -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-edit"></i>
+                    Editar Libro
+                </h3>
+                <button class="modal-close" id="close-edit-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="edit-book-form" class="book-form">
+                <input type="hidden" id="edit-id" name="id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit-title">
+                            <i class="fas fa-heading"></i>
+                            Título *
+                        </label>
+                        <input type="text" id="edit-title" name="title" required>
+                        <span class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-author">
+                            <i class="fas fa-user-edit"></i>
+                            Autor *
+                        </label>
+                        <input type="text" id="edit-author" name="author" required>
+                        <span class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-year">
+                            <i class="fas fa-calendar-alt"></i>
+                            Año de Publicación *
+                        </label>
+                        <input type="number" id="edit-year" name="year" min="1000" max="2030" required>
+                        <span class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-genre">
+                            <i class="fas fa-tags"></i>
+                            Género *
+                        </label>
+                        <select id="edit-genre" name="genre" required>
+                            <option value="">Selecciona un género</option>
+                            <option value="Novela">Novela</option>
+                            <option value="Ciencia Ficción">Ciencia Ficción</option>
+                            <option value="Fantasia">Fantasía</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Misterio">Misterio</option>
+                            <option value="Terror">Terror</option>
+                            <option value="Biografía">Biografía</option>
+                            <option value="Historia">Historia</option>
+                            <option value="Poesía">Poesía</option>
+                            <option value="Teatro">Teatro</option>
+                            <option value="Realismo Mágico">Realismo Mágico</option>
+                            <option value="Aventura">Aventura</option>
+                            <option value="Infantil">Infantil</option>
+                            <option value="Juvenil">Juvenil</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Actualizar Libro
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-edit">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Confirmar Eliminación
+                </h3>
+                <button class="modal-close" id="close-delete-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar el libro <strong id="delete-book-title"></strong>?</p>
+                <p class="warning-text">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-danger" id="confirm-delete">
+                    <i class="fas fa-trash"></i>
+                    Eliminar
+                </button>
+                <button class="btn btn-secondary" id="cancel-delete">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Biblioteca Digital. Desarrollado con ❤️ para amantes de los libros.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
