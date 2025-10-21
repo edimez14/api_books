@@ -1,6 +1,6 @@
 // Configuración de la API
 const debug = false;
-const API_BASE_URL = debug ? 'http://localhost:3000/api' :   'https://api-books-yuzo.onrender.com/';
+const API_BASE_URL = debug ? 'http://localhost:3000/api' :   'https://api-books-yuzo.onrender.com/api';
 
 // Cliente HTTP para comunicarse con la API
 class BookAPI {
