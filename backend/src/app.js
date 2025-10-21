@@ -9,7 +9,7 @@ const app = express();
 // ✅ CONFIGURACIÓN CORS DEFINITIVA
 const corsOptions = {
   origin: [
-    'https://edimez14.github.io',          // Producción
+    'https://api-books-inky.vercel.app/',          // Producción
     'http://localhost:3000',               // Desarrollo
     'http://127.0.0.1:3000',               // Desarrollo
     'http://localhost:8000',               // Desarrollo frontend
